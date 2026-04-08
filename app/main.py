@@ -1,6 +1,6 @@
-from fastapi import FastAPI
-from app.api.routes import router
+def main():
+    print("Hello from service-monitor-api!")
 
-app = FastAPI(title="Service Monitor API", version="1.0.0")
 
-app.include_router(router)
+if __name__ == "__main__":
+    main()
