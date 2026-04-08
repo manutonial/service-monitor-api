@@ -11,4 +11,4 @@ class CheckResult(Base):
     response_time_ms = Column(Integer, nullable=True)
     is_up = Column(Boolean, nullable=False)
     error_message = Column(String, nullable=True)
-    checked_at = Column(DateTime, default=datetime.utcnow)
+    checked_at = Column(DateTime, default=datetime.now)
