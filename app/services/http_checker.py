@@ -9,7 +9,7 @@ class HttpChecker:
         try:
             async with httpx.AsyncClient(timeout=10.0, follow_redirects=True) as client:
                 response = await client.get(url)
-            time_elapsed = int((time.perf_counter() - start) * 1000) # pyright: ignore[reportInvalidTypeForm]
+            time_elapsed = int((time.perf_counter() - start) * 1000) 
 
             return {
                 "status": response.status_code,
@@ -18,7 +18,7 @@ class HttpChecker:
             }
         
         except Exception as e:
-            time_elapsed = int((time.perf_counter() - start) * 1000) # pyright: ignore[reportInvalidTypeForm]
+            time_elapsed = int((time.perf_counter() - start) * 1000)
             
             return {
                 "status": None,
