@@ -6,12 +6,12 @@ Uma API robusta e assíncrona para monitoramento de disponibilidade e latência 
 - **Linguagem:** Python 3.11
 - **Framework:** FastAPI (Arquitetura Assíncrona)
 - **Persistência:** SQLAlchemy + SQLite (v1)
-- **Validação:** Pydantic (DTO Pattern)
+- **Validação:** Pydantic (DTO Pattern) 
 - **DevOps:** Docker, Docker Compose, GitHub Actions (CI)
 
 ## 🏗️ Decisões de Arquitetura
 O projeto foi estruturado seguindo princípios de **Clean Architecture** e **Separation of Concerns (SoC)**:
-- **DTO Pattern:** Utilização de objetos de transporte de dados (pasta `dtos/`) para desacoplar a camada de API da camada de persistência.
+- **DTO Pattern:** Utilização de objetos de transporte de dados (pasta `schemas/`) para desacoplar a camada de API da camada de persistência.
 - **Service Layer:** Centralização da lógica de negócio em serviços especializados, facilitando testes e manutenibilidade.
 - **Repository Pattern:** Abstração da lógica de banco de dados para garantir que a troca de infraestrutura (ex: SQLite para PostgreSQL) seja transparente para o negócio.
 - **Async HTTP:** Uso de `httpx` para realizar checagens de saúde de forma não bloqueante, permitindo alta performance.
