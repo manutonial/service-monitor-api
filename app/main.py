@@ -1,6 +1,11 @@
-def main():
-    print("Hello from service-monitor-api!")
+from fastapi import FastAPI
 
+app = FastAPI(
+    title="Service Monitor API",
+    description="API para monitoramento da saude de serviços externos",
+    version="1.0.0"
+)
 
-if __name__ == "__main__":
-    main()
+@app.get("/", tags=["Health"])
+async def root():
+    return {"status": "ok"}
