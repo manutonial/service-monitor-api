@@ -1,30 +1,48 @@
-# Service Monitor API 🚀
+# Service Monitor API
 
-Uma API robusta e assíncrona para monitoramento de disponibilidade e latência de serviços externos, construída com foco em boas práticas de engenharia e observabilidade.
+An asynchronous API for monitoring availability and latency of external services, designed with a strong focus on clean architecture, observability, and scalability.
 
-## 🛠️ Stack Técnica
-- **Linguagem:** Python 3.11
-- **Framework:** FastAPI (Arquitetura Assíncrona)
-- **Persistência:** SQLAlchemy + SQLite (v1)
-- **Validação:** Pydantic (DTO Pattern) 
-- **DevOps:** Docker, Docker Compose, GitHub Actions (CI)
+## Tech Stack
 
-## 🏗️ Decisões de Arquitetura
-O projeto foi estruturado seguindo princípios de **Clean Architecture** e **Separation of Concerns (SoC)**:
-- **DTO Pattern:** Utilização de objetos de transporte de dados (pasta `schemas/`) para desacoplar a camada de API da camada de persistência.
-- **Service Layer:** Centralização da lógica de negócio em serviços especializados, facilitando testes e manutenibilidade.
-- **Repository Pattern:** Abstração da lógica de banco de dados para garantir que a troca de infraestrutura (ex: SQLite para PostgreSQL) seja transparente para o negócio.
-- **Async HTTP:** Uso de `httpx` para realizar checagens de saúde de forma não bloqueante, permitindo alta performance.
+- **Linguagem:** Python 3.12
+- **Framework:** FastAPI (Async)
+- **Persistência:** SQLAlchemy + SQLite
+- **Validação:** Pydantic (DTO Pattern)
+- **DevOps:** Docker & Docker Compose
+- **Package Management:** uv
 
-## 📋 Endpoints Principais
-- `GET /health` - Saúde da própria API.
-- `POST /services` - Cadastro de novos serviços para monitoramento.
-- `GET /services` - Listagem de serviços monitorados.
-- `POST /services/{id}/check` - Execução manual de checagem de disponibilidade.
-- `GET /services/{id}/history` - Histórico completo de uptime e tempo de resposta.
+---
 
-## 🐳 Como rodar com Docker
-Certifique-se de ter o Docker e Docker Compose instalados e execute:
+## Architecture Overview
 
-```bash
-docker-compose up --build
+The project follows **Clean Architecture** principles with strict separation of concerns between layers:
+
+- **API Layer (`api/`)**: Handles HTTP requests, routing, and dependency injection.
+- **Schemas / DTOs (`schemas/`)**: Defines input/output contracts using Pydantic, isolating external data representation from internal models.
+- **Service Layer (`services/`)**: Contains business logic and orchestration of operations.
+- **Repository Layer (`repositories/`)**: Encapsulates database access and query logic.
+- **Models (`models/`)**: SQLAlchemy ORM definitions representing database structure.
+- **Core (`core/`)**: Infrastructure setup such as database connection and engine configuration.
+- **Clients (`services/http_checker.py`)**: External integrations isolated for testability and resilience.
+
+---
+
+## Architecture Diagram
+
+```mermaid
+flowchart TD
+    Client[HTTP Client] --> API[API Layer]
+
+    API --> DTO[DTO / Schemas]
+    API --> Service[Service Layer]
+
+    Service --> Repo[Repository Layer]
+    Service --> External[HTTP Client / External Services]
+
+    Repo --> Model[ORM Models]
+    Model --> DB[(SQLite Database)]
+
+    style API fill:#dbeafe,stroke:#93c5fd
+    style Service fill:#dcfce7,stroke:#86efac
+    style Repo fill:#ede9fe,stroke:#c4b5fd
+    style Model fill:#fce7f3,stroke:#f9a8d4
