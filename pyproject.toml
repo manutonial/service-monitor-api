@@ -11,5 +11,5 @@ dependencies = [
     "uvicorn>=0.44.0",
 ]
 
-[tool.uv.dev-dependencies]
+[dependency-groups]
 pytest = ">=9.0.3"
