@@ -11,4 +11,4 @@ class CheckResultRepository:
         return check
     
     def list_by_service(self, db: Session, service_id: int):
-        return db.query(CheckResult).filter(CheckResult.id == service_id).all()
+        return db.query(CheckResult).filter(CheckResult.service_id == service_id).all()
