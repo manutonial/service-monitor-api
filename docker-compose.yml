@@ -1,1 +1,11 @@
--
+services:
+  api:
+    build: .
+    container_name: monitor-api
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./data:/app/data
+    environment:
+      - DATABASE_URL=sqlite:///./data/monitor.db
+    restart: unless-stopped
