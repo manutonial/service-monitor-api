@@ -2,7 +2,7 @@ from fastapi import FastAPI
 
 app = FastAPI(
     title="Service Monitor API",
-    description="API para monitoramento da saude de serviços externos",
+    description="Api for health check third party services",
     version="1.0.0"
 )
 
