@@ -8,7 +8,7 @@ COPY pyproject.toml uv.lock ./
 RUN uv sync --frozen --no-dev --no-install-project
 
 # runtime
-FROM python:3.12-slim-bookworm
+FROM python3.12-bookworm-slim
 WORKDIR /app
 
 COPY --from=builder /app/.venv/ /app/.venv/
