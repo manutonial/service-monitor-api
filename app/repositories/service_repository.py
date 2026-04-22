@@ -14,5 +14,5 @@ class ServiceRepository:
     def list_all(self, db: Session):
         return db.query(Service).all()
     
-    def get_by_id(self, db: Session, service_id: int):
-        return db.query(Service).filter(Service.id == service_id)
+    def get_by_id(self, db: Session, service_id: int) -> Service | None:
+        return db.query(Service).filter(Service.id == service_id).first()
