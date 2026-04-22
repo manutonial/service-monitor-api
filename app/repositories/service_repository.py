@@ -11,8 +11,8 @@ class ServiceRepository:
         
         return service
 
-    def list_all(self, db: Session):
-        return db.query(Service).all()
+    def list_all(self, db: Session, skip: int = 0, limit: int = 100):
+        return db.query(Service).offset(skip).limit(limit).all()
     
     def get_by_id(self, db: Session, service_id: int) -> Service | None:
         return db.query(Service).filter(Service.id == service_id).first()

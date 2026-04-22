@@ -1,14 +1,12 @@
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
-from app.core.database import engine, Base
 from app.schemas.service import ServiceCreate, ServiceResponse
 from app.schemas.check_result import CheckResultResponse
 from app.repositories.service_repository import ServiceRepository
 from app.repositories.check_result_repository import CheckResultRepository
 from app.services.monitor_service import MonitorService
-from api.dependencies import get_db
+from app.api.dependencies import get_db
 
-Base.metadata.create_all(bind=engine)
 
 router = APIRouter()
 service_repository = ServiceRepository()

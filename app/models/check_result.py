@@ -1,5 +1,5 @@
 from sqlalchemy import Column, Integer, String, Boolean, DateTime, ForeignKey
-from datetime import datetime
+from sqlalchemy.sql import func
 from app.core.database import Base
 
 class CheckResult(Base):
@@ -11,4 +11,4 @@ class CheckResult(Base):
     response_time_ms = Column(Integer, nullable=True)
     is_up = Column(Boolean, nullable=False)
     error_message = Column(String, nullable=True)
-    checked_at = Column(DateTime, default=datetime.now)
+    checked_at = Column(DateTime(timezone=True), server_default=func.now())
