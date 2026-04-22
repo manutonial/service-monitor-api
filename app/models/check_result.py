@@ -6,7 +6,7 @@ class CheckResult(Base):
     __tablename__ = "check_results"
 
     id = Column(Integer, primary_key=True, index=True)
-    service_id = Column(Integer, ForeignKey("services.id"), nullable=False)
+    service_id = Column(Integer, ForeignKey("services.id"), nullable=False, index=True)
     status = Column(Integer, nullable=False)
     response_time_ms = Column(Integer, nullable=True)
     is_up = Column(Boolean, nullable=False)
