@@ -1,8 +1,10 @@
 from contextlib import asynccontextmanager
+
 from fastapi import FastAPI, Request
 from fastapi.responses import JSONResponse
+
 from app.api.routes import router
-from app.core.database import engine, Base
+from app.core.database import Base, engine
 
 
 @asynccontextmanager
@@ -12,7 +14,7 @@ async def lifespan(app: FastAPI):
 
 app = FastAPI(
     title="Service Monitor API",
-    description="API para health check de serviços terceiros",
+    description="Api for checking the health of third party systems",
     version="1.0.0",
     lifespan=lifespan,
 )

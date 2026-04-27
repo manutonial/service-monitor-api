@@ -1,5 +1,7 @@
 from sqlalchemy.orm import Session
+
 from app.models.check_result import CheckResult
+
 
 class CheckResultRepository:
     def create(self, db: Session, **fields): 

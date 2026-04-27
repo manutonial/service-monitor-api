@@ -1,6 +1,8 @@
 from sqlalchemy.orm import Session
+
 from app.models.service import Service
 from app.schemas.service import ServiceCreate
+
 
 class ServiceRepository:
     def create(self, db: Session, payload: ServiceCreate) -> Service:

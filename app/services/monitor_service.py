@@ -1,7 +1,9 @@
 from sqlalchemy.orm import Session
-from app.repositories.service_repository import ServiceRepository
+
 from app.repositories.check_result_repository import CheckResultRepository
+from app.repositories.service_repository import ServiceRepository
 from app.services.http_checker import HttpChecker
+
 
 class MonitorService:
     def __init__(self):
