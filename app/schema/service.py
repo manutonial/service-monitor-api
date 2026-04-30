@@ -1,6 +1,6 @@
 from datetime import datetime
 
-from pydantic import BaseModel, HttpUrl
+from pydantic import BaseModel, ConfigDict, HttpUrl
 
 
 class ServiceCreate(BaseModel):
@@ -15,5 +15,4 @@ class ServiceResponse(BaseModel):
     expected_status: int
     created_at: datetime
 
-    class Config:
-        from_attributes = True
+    model_config = ConfigDict(from_attributes=True)

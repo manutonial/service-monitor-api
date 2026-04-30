@@ -8,8 +8,8 @@ from sqlalchemy.orm import Query, Session
 from app.api.dependencies import get_db
 from app.repositories.check_result_repository import CheckResultRepository
 from app.repositories.service_repository import ServiceRepository
-from app.schemas.check_result import CheckResultResponse
-from app.schemas.service import ServiceCreate, ServiceResponse
+from app.schema.check_result import CheckResultResponse
+from app.schema.service import ServiceCreate, ServiceResponse
 from app.services.monitor_service import MonitorService
 
 router = APIRouter()
