@@ -13,14 +13,13 @@ class MonitorService:
 
     async def run_check(self, db: Session, service_id: int):
         service = self.service_repository.get_by_id(db, service_id)
-
         if not service:
-            return None
+            return None # route give status 404
         
         result = await self.http_checker.check(service.url)
         
-        is_up = result["status"] == service.expected_status if result["status"] else False
-
+        is_up = result["status"] is not None and result["status"] is service.expected_status
+        
         return self.check_result_repository.create(
             db,
             service_id=service_id,
