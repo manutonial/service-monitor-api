@@ -29,20 +29,23 @@ def create_service(
     try:
         return service_repository.create(db, payload)
     # If the url already exists in the database, returns HTTPException
-    except IntegrityError: 
-        db.rollback
-        raise HTTPException(status_code=409, detail="URL already has been created")
+    except IntegrityError as e:
+        db.rollback()
+        raise HTTPException(status_code=409, detail="URL already has been created") from e
 
 @router.get("/services", response_model=list[ServiceResponse])
 def list_services(
     db: Annotated[Session, Depends(get_db)], 
-    skip: int = Query(default=0), 
-    limit: int = Query(default=100, le=500)
+    skip: int = Query(default=0, description="registers to skip"), 
+    limit: int = Query(default=100, le=500, description="max returned")
 ):
     return service_repository.list_all(db, skip=skip, limit=limit)
 
 @router.post("/services/{service_id}/check", response_model=CheckResultResponse)
-async def check_service(service_id: int, db: Annotated[Session, Depends(get_db)]):
+async def check_service(
+    service_id: int, 
+    db: Annotated[Session, Depends(get_db)]
+):
     result = await monitor_service.run_check(db, service_id)
     if not result:
         raise HTTPException(status_code=404, detail="Service not found.")
