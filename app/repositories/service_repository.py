@@ -1,0 +1,20 @@
+from sqlalchemy.orm import Session
+
+from app.models.service import Service
+from app.schema.service import ServiceCreate
+
+
+class ServiceRepository:
+    def create(self, db: Session, payload: ServiceCreate) -> Service:
+        service = Service(**payload.model_dump(mode="json"))
+        db.add(service)
+        db.commit()
+        db.refresh(service)
+
+        return service
+
+    def list_all(self, db: Session, skip: int = 0, limit: int = 100):
+        return db.query(Service).offset(skip).limit(limit).all()
+
+    def get_by_id(self, db: Session, service_id: int) -> Service | None:
+        return db.query(Service).filter(Service.id == service_id).first()
