@@ -1,18 +1,19 @@
 services:
   api:
     build: .
-    container_name: monitor-api
     ports:
       - "8000:8000"
     volumes:
-      - ./data:/app/data
+      - monitor-data:/app/data
     environment:
       - DATABASE_URL=sqlite:////app/data/monitor.db
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:8000/"]
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8000/health').read()"]
       interval: 30s
       timeout: 5s
       retries: 3
       start_period: 10s
-      
     restart: on-failure:5
+
+volumes:
+  monitor-data:
